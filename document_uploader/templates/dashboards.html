@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #333;
+            padding: 0;
+            margin: 0;
+        }
+    header {
+            background-color: #add8e6;
+            padding: 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            position: relative;
+        }
+
+        header img {
+            width: 50px; 
+            height: auto; 
+            margin-right: 10px; 
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px; 
+            color: #333;
+            font-weight: 600;
+            text-align: center; 
+            flex-grow: 1; 
+            padding: 0 10px; 
+        }
+.dropdown {
+            position: relative;
+            display: inline-block;
+            float: right; 
+            margin: 0 20px; 
+        }
+
+        .menu-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px; 
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            border: none; 
+            cursor: pointer; 
+            transition: background-color 0.3s;
+        }
+
+        .menu-button:hover {
+            background-color: #0056b3;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            padding-right:10px;
+            right: 0; 
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            margin-top: 5px;
+            overflow: hidden; 
+        }
+
+        /* Show dropdown on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 10px; 
+            text-decoration: none;
+            width: 100%;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background: #007bff; 
+            color: white; 
+        }
+
+        .content {
+            margin: 40px 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 600;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .table-responsive {
+            overflow-x: auto; /* Allow horizontal scrolling */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .delete-checkbox {
+            margin-right: 10px;
+        }
+
+        .form-actions {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .form-actions button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .form-actions button:hover {
+            background-color: #218838;
+        }
+
+        .no-files {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
+        .link-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .link-button:hover {
+            background-color: #0056b3;
+        }
+
+        .preview-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .preview-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Messages styles */
+        .messages {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .messages li {
+            text-align: center;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        /* Pagination styles */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            margin: 0 5px;
+            padding: 8px 12px;
+            border: 1px solid #007bff;
+            color: #007bff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .pagination a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .pagination .active {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            header {
+            flex-direction: column; /* Stack items vertically on mobile */
+            padding: 10px; /* Less padding on mobile */
+        }
+.header-links a {
+        padding: 6px 12px; /* Smaller buttons on mobile */
+        font-size: 12px; /* Smaller font size on mobile */
+    }
+        header img {
+            width: 40px; /* Smaller logo size for mobile */
+            margin: 5px 0; /* Spacing adjustment for mobile */
+        }
+
+        header h1 {
+            font-size: 24px; /* Smaller font size for mobile */
+            text-align: center; /* Center text on mobile */
+        }
+            .content {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            table, th, td {
+                font-size: 14px; /* Smaller font size for mobile */
+            }
+
+            .form-actions button, .link-button {
+                padding: 8px 12px; /* Smaller button padding */
+            }
+        }
+    </style>
+</head>
+<body>
+     <header>
+        <img src="https://w1.pngwing.com/pngs/716/198/png-transparent-technology-information-technology-information-and-communications-technology-science-and-technology-computing-technology-company-text-line.png" alt="Left Logo" class="logo-left">
+        <h1>MUSKAN COMMUNICATION</h1>
+        <img src="https://w1.pngwing.com/pngs/716/198/png-transparent-technology-information-technology-information-and-communications-technology-science-and-technology-computing-technology-company-text-line.png" alt="Right Logo" class="logo-right">
+    </header>
+    
+    <!-- Dropdown Menu on the right side -->
+    <div class="dropdown">
+        <button class="menu-button">Menu</button>
+        <div class="dropdown-content">
+            <a href="{% url 'password_change' %}" class="change-password-link">Change Password</a>
+            <a href="{% url 'logout' %}" class="logout-link">Logout</a>
+        </div>
+    </div>
+
+
+    <div class="content">
+        <h2 class="title">Uploaded Documents</h2>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            
+            {% if user_files %}
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Phone Number</th>
+                                <th>File Name</th>
+                                <th>Number of Copies</th>
+                                <th>Uploaded On</th>
+<!--                                 <th>Preview</th> -->
+                                <th>Download</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user, files in user_files.items %}
+                                {% for file in files %}
+                                    <tr>
+                                        {% if forloop.first %}
+                                            <td rowspan="{{ files|length }}">{{ user.name }}</td>
+                                            <td rowspan="{{ files|length }}">{{ user.phone_number }}</td>
+                                        {% endif %}
+                                        <td>{{ file.cleaned_file_name }}</td>
+                                        <td>{{ file.copies }}</td>
+                                        <td>{{ file.uploaded_at }}</td>
+<!--                                         <td>
+                                            <a href="{{ file.file.url }}" target="_blank" class="preview-link">Preview</a>
+                                        </td> -->
+                                        <td>
+                                            <a href="{{ file.file.url }}" download>Download</a>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" class="delete-checkbox" name="delete_files" value="{{ file.id }}">
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-actions">
+                    <button type="submit">Delete Selected Files</button>
+                </div>
+            {% else %}
+                <p class="no-files">No files uploaded yet.</p>
+            {% endif %}
+        </form>
+        
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
+        <a href="{% url 'manage_profile_and_files' %}" class="link-button">Go to File Upload</a>
+    </div>
+</body>
+</html>
